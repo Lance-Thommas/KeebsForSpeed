@@ -1,0 +1,26 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #5e5e5e;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.custom-header {
+
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.custom-title {
+  font-size: 1.875rem;
+
+  font-weight: bold;
+}
+
+.typing-area-text {
+  font-size: 4rem;
+}
