@@ -11,9 +11,24 @@ function App() {
   const [startTime, setStartTime] = useState(null);
   const [time, setTime] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [text, setText] = useState(() => (
-    sampleTexts[Math.floor(Math.random() * sampleTexts.length)]
-  ));
+  const [text, setText] = useState("");
+
+  const fetchNewText = async () => {
+    try {
+      const response = await fetch("https://baconipsum.com/api/?type=all-meat&sentences=3");
+      const data = await response.json();
+      setText(data[0]);
+    }
+    catch (err) {
+      console.error("Error fetching text:", err);
+      // Fallback to a random sample text if the fetch fails
+      setText("The quick brown fox jumps over the lazy dog.");
+    }
+  };
+
+  useEffect(() => {
+    fetchNewText();
+  }, []);
 
 
 
@@ -80,7 +95,7 @@ function App() {
           setUserInput("");
           setStartTime(null);
           setTime(0);
-          setText(sampleTexts[Math.floor(Math.random() * sampleTexts.length)]);
+          fetchNewText();
           setIsCompleted(false);
         }} />
       </main>

@@ -22,5 +22,20 @@ body {
 }
 
 .typing-area-text {
-  font-size: 4rem;
+  font-size: 2rem;
+  line-height: 1.5;
+  text-align: left;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1000px;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+
+  /* Fade-out at bottom */
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
