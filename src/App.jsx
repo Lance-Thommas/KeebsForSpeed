@@ -78,10 +78,10 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="">
       <Header />
       <main className="flex flex-col items-center justify-center p-4">
-        <p className="text-center text-xl mb-2">
+        <p className="timer">
           ⏱️ Time Left: {remainingTime}s
         </p>
         <TypingArea

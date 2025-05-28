@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #5e5e5e;
+  background-color: #323437;
   font-family: 'Courier New', Courier, monospace;
 }
 
@@ -23,7 +23,7 @@ body {
 
 .typing-area-text {
 
-  font-size: 2rem;
+  font-size: 3rem;
   line-height: 1.5;
   text-align: left;
   margin: auto;
@@ -39,4 +39,29 @@ body {
   /* Fade-out at bottom */
   -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.restart-icon {
+  color: rgb(21, 21, 21);
+
+  background: none;
+  /* Remove any default background */
+  display: block;
+  margin-top: 20px;
+  transition: transform 0.2s;
+}
+
+button.restart {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+button.restart:hover .restart-icon {
+  transform: rotate(60deg);
+  transition: transform 0.2s ease;
 }

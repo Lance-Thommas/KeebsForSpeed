@@ -58,10 +58,10 @@ const TypingArea = ({ text, userInput, handleChange, isCompleted }) => {
                         {line.split("").map((char, i) => {
                             const globalIndex = charOffset + i + lineIdx * (MAX_CHARS_PER_LINE + 1);
                             const inputChar = userInput[globalIndex];
-                            let style = { color: "white" };
+                            let style = { color: "#646669" };
 
                             if (inputChar !== undefined) {
-                                style.color = inputChar === char ? "lightgreen" : "red";
+                                style.color = inputChar === char ? "#d1d0c5" : "#ca4754";
                             }
 
                             return (
