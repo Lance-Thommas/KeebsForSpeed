@@ -8,20 +8,19 @@ import RestartButton from "./components/RestartButton";
 
 function App() {
   const [userInput, setUserInput] = useState("");
-  const [startTime, setStartTime] = useState(null);
-  const [time, setTime] = useState(0);
-  const [isCompleted, setIsCompleted] = useState(false);
   const [text, setText] = useState("");
+  const [duration] = useState(30); // set 30s timer
+  const [remainingTime, setRemainingTime] = useState(duration);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const fetchNewText = async () => {
     try {
       const response = await fetch("https://baconipsum.com/api/?type=all-meat&sentences=3");
       const data = await response.json();
       setText(data[0]);
-    }
-    catch (err) {
+    } catch (err) {
       console.error("Error fetching text:", err);
-      // Fallback to a random sample text if the fetch fails
       setText("The quick brown fox jumps over the lazy dog.");
     }
   };
@@ -30,78 +29,78 @@ function App() {
     fetchNewText();
   }, []);
 
-
-
   useEffect(() => {
     let interval;
-    if (startTime) {
+    if (isRunning && !isCompleted) {
       interval = setInterval(() => {
-        setTime(Math.floor((Date.now() - startTime) / 1000));
+        setRemainingTime((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setIsRunning(false);
+            setIsCompleted(true);
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
     }
-
     return () => clearInterval(interval);
-  }, [startTime]);
-
+  }, [isRunning, isCompleted]);
 
   const handleChange = (event) => {
     const value = event.target.value;
-    if (!startTime && value.length === 1) {
-      setStartTime(Date.now());
-    }
-    if (value === text) {
-      setTime((Date.now() - startTime) / 1000);
-      setIsCompleted(true);
+    if (!isRunning && value.length === 1) {
+      setIsRunning(true);
     }
     setUserInput(value);
   };
 
   const calculateWPM = () => {
-    if (time === 0) return 0;
     const words = userInput.length / 5;
-    return Math.round(words / (time / 60));
+    const timeSpent = (duration - remainingTime) / 60;
+    return timeSpent > 0 ? Math.round(words / timeSpent) : 0;
   };
 
   const calculateAccuracy = () => {
     let correct = 0;
     for (let i = 0; i < userInput.length; i++) {
-      if (userInput[i] === text[i]) {
-        correct++;
-      }
+      if (userInput[i] === text[i]) correct++;
     }
-    return userInput.length === 0
-      ? 0
-      : Math.round(((correct / userInput.length) * 100));
-  }
+    return userInput.length === 0 ? 0 : Math.round((correct / userInput.length) * 100);
+  };
 
+  const restartRace = () => {
+    setUserInput("");
+    fetchNewText();
+    setRemainingTime(duration);
+    setIsRunning(false);
+    setIsCompleted(false);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-900 ">
+    <div className="min-h-screen bg-gray-900 text-white">
       <Header />
       <main className="flex flex-col items-center justify-center p-4">
-
+        <p className="text-center text-xl mb-2">
+          ⏱️ Time Left: {remainingTime}s
+        </p>
         <TypingArea
           text={text}
           userInput={userInput}
           handleChange={handleChange}
           isCompleted={isCompleted}
         />
-        <Stats
-          time={time}
-          wpm={calculateWPM()}
-          accuracy={calculateAccuracy()}
-        />
-        <RestartButton onRestart={() => {
-          setUserInput("");
-          setStartTime(null);
-          setTime(0);
-          fetchNewText();
-          setIsCompleted(false);
-        }} />
+        {isCompleted && (
+          <Stats
+            time={duration}
+            wpm={calculateWPM()}
+            accuracy={calculateAccuracy()}
+          />
+        )}
+        <RestartButton onRestart={restartRace} />
       </main>
     </div>
   );
 }
-
 
 export default App;
