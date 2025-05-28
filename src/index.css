@@ -47,7 +47,7 @@ body {
   background: none;
   /* Remove any default background */
   display: block;
-  margin-top: 20px;
+  margin-top: 40px;
   transition: transform 0.2s;
 }
 
@@ -64,4 +64,10 @@ button.restart {
 button.restart:hover .restart-icon {
   transform: rotate(60deg);
   transition: transform 0.2s ease;
+}
+
+.timer {
+  color: #E2B714;
+  font-size: 2rem;
+
 }

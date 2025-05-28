@@ -16,7 +16,7 @@ function App() {
 
   const fetchNewText = async () => {
     try {
-      const response = await fetch("https://baconipsum.com/api/?type=all-meat&sentences=3");
+      const response = await fetch("https://baconipsum.com/api/?type=all-meat&sentences=10");
       const data = await response.json();
       setText(data[0]);
     } catch (err) {
@@ -82,7 +82,7 @@ function App() {
       <Header />
       <main className="flex flex-col items-center justify-center p-4">
         <p className="timer">
-          ⏱️ Time Left: {remainingTime}s
+          {remainingTime}s
         </p>
         <TypingArea
           text={text}
