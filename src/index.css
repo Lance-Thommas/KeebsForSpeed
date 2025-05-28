@@ -22,12 +22,13 @@ body {
 }
 
 .typing-area-text {
+
   font-size: 2rem;
   line-height: 1.5;
   text-align: left;
-  margin: 0 auto;
-  width: 90%;
-  max-width: 1000px;
+  margin: auto;
+  width: 100%;
+  max-width: 1300px;
 
   overflow: hidden;
   display: -webkit-box;
