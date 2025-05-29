@@ -1,0 +1,76 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #323437;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.custom-header {
+
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.custom-title {
+  font-size: 1.875rem;
+
+  font-weight: bold;
+}
+
+.typing-area-text {
+
+  font-size: 2rem;
+  line-height: 1.5;
+  text-align: left;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+
+  /* Optional fade effect */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+
+
+.restart-icon {
+  color: #646669;
+
+  background: none;
+  /* Remove any default background */
+  display: block;
+  margin-top: 40px;
+  transition: transform 0.2s;
+}
+
+button.restart {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+button.restart:hover .restart-icon {
+  transform: rotate(60deg);
+  transition: transform 0.2s ease;
+}
+
+.timer {
+  color: #E2B714;
+  font-size: 2rem;
+
+}
