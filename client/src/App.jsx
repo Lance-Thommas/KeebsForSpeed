@@ -19,6 +19,13 @@ function App() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [startTime, setStartTime] = useState(null);
 
+  // Latest change not yet implemented
+  const [user, setUser] = useState(() => {
+  const savedUser = localStorage.getItem('user');
+  return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+
   const fetchNewText = async () => {
     try {
       const response = await fetch(
