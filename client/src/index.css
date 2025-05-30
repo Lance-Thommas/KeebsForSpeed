@@ -9,7 +9,6 @@ body {
 }
 
 .custom-header {
-
   color: white;
   text-align: center;
   padding: 1rem;
@@ -17,12 +16,10 @@ body {
 
 .custom-title {
   font-size: 1.875rem;
-
   font-weight: bold;
 }
 
 .typing-area-text {
-
   font-size: 2rem;
   line-height: 1.5;
   text-align: left;
@@ -32,7 +29,6 @@ body {
   word-wrap: break-word;
   white-space: normal;
 
-  /* Optional fade effect */
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -42,13 +38,9 @@ body {
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
-
-
 .restart-icon {
   color: #646669;
-
   background: none;
-  /* Remove any default background */
   display: block;
   margin-top: 40px;
   transition: transform 0.2s;
@@ -72,5 +64,86 @@ button.restart:hover .restart-icon {
 .timer {
   color: #E2B714;
   font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
 
+.word-count-label {
+  color: #E2B714;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.nav-section {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-btn:hover {
+  color: white;
+}
+
+.nav-btn.active {
+  color: white;
+  border-bottom: 2px solid #facc15;
+}
+
+.typing-area-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+
+  position: relative;
+  cursor: text;
+  transition: filter 0.3s ease;
+  /* Default state: blurred */
+  filter: blur(2px);
+}
+
+.typing-area-container:focus-within {
+  /* When the hidden input inside is focused, remove blur */
+  filter: none;
+  cursor: text;
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.correct-char {
+  color: white;
+}
+
+.incorrect-char {
+  color: #ff4d4d;
+}
+
+.pending-char {
+  color: #888888;
+}
+
+.current-char {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-radius: 2px;
 }
