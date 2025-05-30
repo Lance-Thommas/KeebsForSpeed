@@ -121,7 +121,7 @@ button.restart:hover .restart-icon {
 
 .nav-btn.active {
   color: #E2B714;
-  
+
 }
 
 .typing-area-container {
@@ -163,4 +163,25 @@ button.restart:hover .restart-icon {
 .current-char {
   background-color: rgba(255, 255, 0, 0.3);
   border-radius: 2px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: #2c2e31;
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 300px;
 }

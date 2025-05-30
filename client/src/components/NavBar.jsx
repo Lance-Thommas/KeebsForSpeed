@@ -1,44 +1,56 @@
-// src/components/NavBar.jsx
+import { useState } from "react";
+import LoginPopup from "./LoginPopup"; 
+
 function NavBar({ mode, setMode, testType, setTestType }) {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <nav className="navbar-container">
-        <nav className="navbar">
+      <div className="navbar">
         <div className="nav-section">
-            <button
+          <button
             className={`nav-btn ${mode === "default" ? "active" : ""}`}
             onClick={() => setMode("default")}
-            >
+          >
             Default
-            </button>
-            <button
+          </button>
+          <button
             className={`nav-btn ${mode === "noPunctuation" ? "active" : ""}`}
             onClick={() => setMode("noPunctuation")}
-            >
+          >
             No Punctuation
-            </button>
-            <button
+          </button>
+          <button
             className={`nav-btn ${mode === "textOnly" ? "active" : ""}`}
             onClick={() => setMode("textOnly")}
-            >
+          >
             Text Only
-            </button>
+          </button>
         </div>
 
         <div className="nav-section">
-            <button
+          <button
             className={`nav-btn ${testType === "time" ? "active" : ""}`}
             onClick={() => setTestType("time")}
-            >
+          >
             Time
-            </button>
-            <button
+          </button>
+          <button
             className={`nav-btn ${testType === "words" ? "active" : ""}`}
             onClick={() => setTestType("words")}
-            >
+          >
             Words
-            </button>
+          </button>
         </div>
-        </nav>
+
+        <div className="nav-section nav-profile">
+          <button className="nav-btn" onClick={() => setShowLogin(true)}>
+            👤
+          </button>
+        </div>
+      </div>
+
+      {showLogin && <LoginPopup close={() => setShowLogin(false)} />}
     </nav>
   );
 }
