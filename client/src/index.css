@@ -19,28 +19,6 @@ body {
   font-weight: bold;
 }
 
-.typing-area-text {
-  font-size: 2rem;
-  line-height: 1.5;
-  text-align: left;
-  margin: auto;
-  max-width: 100%;
-  width: 100%;
-  word-wrap: break-word;
-  white-space: normal;
-
-  /* REMOVE scroll and ellipsis */
-  overflow: hidden;
-  height: calc(1.5em * 3);
-  /* 3 lines tall */
-  mask-image: none;
-  -webkit-mask-image: none;
-
-  /* REMOVE line clamp */
-  display: block;
-}
-
-
 .restart-icon {
   color: #646669;
   background: none;
@@ -87,7 +65,7 @@ button.restart:hover .restart-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* ✅ vertically center items */
+
   gap: 2rem;
   padding: 1rem 2rem;
   background-color: #2c2e31;
@@ -98,8 +76,6 @@ button.restart:hover .restart-icon {
   max-width: 90vw;
 
   height: 10px;
-  /* ✅ fixed height */
-  /* or use min-height if you want flexibility */
 }
 
 
@@ -126,6 +102,27 @@ button.restart:hover .restart-icon {
 .nav-btn.active {
   color: #E2B714;
 
+}
+
+.typing-area-text {
+  font-size: 2rem;
+  line-height: 1.5;
+  text-align: left;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+
+  /* REMOVE scroll and ellipsis */
+  overflow: hidden;
+  height: calc(1.5em * 3);
+  /* 3 lines tall */
+  mask-image: none;
+  -webkit-mask-image: none;
+
+  /* REMOVE line clamp */
+  display: block;
 }
 
 .typing-area-container {
@@ -190,7 +187,6 @@ button.restart:hover .restart-icon {
   width: 300px;
 }
 
-/* components/StatsPopup.css */
 .stats-popup-overlay {
   position: fixed;
   top: 0;
