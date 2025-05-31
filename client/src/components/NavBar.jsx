@@ -1,5 +1,7 @@
+// src/components/NavBar.jsx
 import { useState } from "react";
 import LoginPopup from "./LoginPopup";
+import StatsSection from "./StatsSection";
 
 function NavBar({
   mode,
@@ -75,6 +77,12 @@ function NavBar({
         )}
 
         <div className="nav-section nav-profile">
+          {/*This gets replaced by the users username upon login which causes errors and needs to be fixed*/}
+          <button className="nav-btn" onClick={() => setShowStats(true)}>
+            Stats
+          </button>
+
+
           {user ? (
             <>
               <span className="nav-btn username">
@@ -93,11 +101,14 @@ function NavBar({
       </div>
 
       {showLogin && (
-        <LoginPopup
-          close={() => setShowLogin(false)}
-          setUser={setUser}
-        />
+        <LoginPopup close={() => setShowLogin(false)} setUser={setUser} />
       )}
+
+      {/*This gets replaced by the users username upon login which causes errors and needs to be fixed*/}
+      {user && showStats && (
+        <StatsSection close={() => setShowStats(false)} />
+      )}
+
     </nav>
   );
 }

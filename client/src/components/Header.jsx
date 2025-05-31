@@ -1,3 +1,5 @@
+// src/components/Header.jsx
+
 const Header = () => {
     return (
         <header className="custom-header">

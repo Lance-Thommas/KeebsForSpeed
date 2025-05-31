@@ -1,24 +1,22 @@
-import React from 'react';
+// src/components/StatsPopup.jsx
 
-function StatsPopup({ stats, onRestart, onClose, loggedIn }) {
+function StatsPopup({ wpm, accuracy, time, onRestart, user }) {
     return (
-        <div className="popup-overlay">
-            <div className="popup">
-                <h2>Race Results</h2>
-                <p>⏱ Time: {stats.time}s</p>
-                <p>💨 WPM: {stats.wpm}</p>
-                <p>🎯 Accuracy: {stats.accuracy}%</p>
-
-                {!loggedIn && (
-                    <p style={{ color: '#E2B714', marginTop: '8px' }}>
-                        Log in to save stats
-                    </p>
+        <div className="stats-popup-overlay">
+            <div className="stats-popup">
+                <h2>Test Results</h2>
+                <p>WPM: {wpm}</p>
+                <p>Accuracy: {accuracy}%</p>
+                <p>Time: {Math.round(time)}s</p>
+                {user ? (
+                    <p className="save-status">Stats saved to your account ✅</p>
+                ) : (
+                    <p className="save-status">Log in to save stats 🔒</p>
                 )}
-
-                <button onClick={onRestart}>Restart</button>
-                <button onClick={onClose}>Close</button>
+                <button onClick={onRestart} className="restart-btn">Restart</button>
             </div>
         </div>
     );
 }
+
 export default StatsPopup;

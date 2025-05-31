@@ -1,3 +1,4 @@
+// src/components/RestartButton.jsx
 import { RotateCcw } from 'lucide-react';
 
 const RestartButton = ({ onRestart }) => {

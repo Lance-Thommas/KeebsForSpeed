@@ -7,6 +7,6 @@ const router = express.Router();
 router.post('/register', register);
 router.post('/login', login);
 router.post('/stats', authMiddleware, saveStats);
-router.get('/stats', authMiddleware, getStats);   // NEW – fetch stats
+router.get('/stats', authMiddleware, getStats);
 
 export default router;

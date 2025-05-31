@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
-import Stats from "./components/Stats";
+import StatsPopup from "./components/StatsPopup";
 import RestartButton from "./components/RestartButton";
 import NavBar from "./components/NavBar";
 
@@ -14,16 +14,25 @@ function App() {
   const [remainingTime, setRemainingTime] = useState(duration);
   const [wordCount, setWordCount] = useState(50);
   const [mode, setMode] = useState("default");
+  const [showStats, setShowStats] = useState(false);
+
 
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [startTime, setStartTime] = useState(null);
 
   // Latest change not yet implemented
+  // Safe user state initialization with error handling
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      const savedUser = localStorage.getItem('user');
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (e) {
+      localStorage.removeItem('user');
+      return null;
+    }
   });
+
 
 
   const fetchNewText = async () => {
@@ -68,8 +77,18 @@ function App() {
             clearInterval(interval);
             setIsRunning(false);
             setIsCompleted(true);
+
+            const wpm = calculateWPM();
+            const accuracy = calculateAccuracy();
+            const timeTaken = duration; // we already know the duration
+
+            saveStats(wpm, accuracy, timeTaken);
+            setFinalStats({ wpm, accuracy, time: timeTaken });
+            setShowPopup(true);
+
             return 0;
           }
+
           return prev - 1;
         });
       }, 1000);
@@ -87,6 +106,8 @@ function App() {
         const accuracy = calculateAccuracy();
         const timeTaken = (Date.now() - startTime) / 1000;
         saveStats(wpm, accuracy, timeTaken);
+        setFinalStats({ wpm, accuracy, time: timeTaken });
+        setShowPopup(true);
       }
     }
   }, [userInput, wordCount, testType]);
@@ -137,6 +158,9 @@ function App() {
     }
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [finalStats, setFinalStats] = useState({ wpm: 0, accuracy: 0, time: 0 });
+
 
   const restartRace = () => {
     setUserInput("");
@@ -169,6 +193,8 @@ function App() {
         setDuration={setDuration}
         user={user}
         setUser={setUser}
+        showStats={showStats}
+        setShowStats={setShowStats}
       />
 
       <main className="flex flex-col items-center justify-center p-4">
@@ -184,14 +210,21 @@ function App() {
             isCompleted={isCompleted}
           />
         </div>
-        {isCompleted && (
-          <Stats
-            time={(Date.now() - startTime) / 1000}
-            wpm={calculateWPM()}
-            accuracy={calculateAccuracy()}
+        {showPopup && (
+          <StatsPopup
+            wpm={finalStats.wpm}
+            accuracy={finalStats.accuracy}
+            time={finalStats.time}
+            onRestart={() => {
+              setShowPopup(false);
+              restartRace();
+            }}
+            user={user}
           />
         )}
+
         <RestartButton onRestart={restartRace} />
+
       </main>
     </div>
   );
