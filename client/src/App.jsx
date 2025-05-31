@@ -10,7 +10,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [text, setText] = useState("");
   const [testType, setTestType] = useState("time");
-  const [duration, setDuration] = useState(10);
+  const [duration, setDuration] = useState(30);
   const [remainingTime, setRemainingTime] = useState(duration);
   const [wordCount, setWordCount] = useState(50);
   const [mode, setMode] = useState("default");
