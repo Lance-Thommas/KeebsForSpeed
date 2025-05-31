@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { loginUser } from '../services/api';
 
-function LoginPopup({ close }) {
+function LoginPopup({ close, setUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -12,6 +12,7 @@ function LoginPopup({ close }) {
       const res = await loginUser({ username, password });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
+      setUser(res.data.user);
       close();
     } catch (err) {
       setError('Invalid username or password');

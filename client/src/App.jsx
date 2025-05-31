@@ -21,8 +21,8 @@ function App() {
 
   // Latest change not yet implemented
   const [user, setUser] = useState(() => {
-  const savedUser = localStorage.getItem('user');
-  return savedUser ? JSON.parse(savedUser) : null;
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
 
@@ -83,6 +83,10 @@ function App() {
       if (wordsTyped >= wordCount) {
         setIsRunning(false);
         setIsCompleted(true);
+        const wpm = calculateWPM();
+        const accuracy = calculateAccuracy();
+        const timeTaken = (Date.now() - startTime) / 1000;
+        saveStats(wpm, accuracy, timeTaken);
       }
     }
   }, [userInput, wordCount, testType]);
@@ -115,6 +119,25 @@ function App() {
       : Math.round((correct / userInput.length) * 100);
   };
 
+  const saveStats = async (wpm, accuracy, time) => {
+    const token = localStorage.getItem("token");
+    if (!user || !token) return;
+
+    try {
+      await fetch("http://localhost:5000/api/users/stats", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ wpm, accuracy, time }),
+      });
+    } catch (err) {
+      console.error("Failed to save stats:", err);
+    }
+  };
+
+
   const restartRace = () => {
     setUserInput("");
     fetchNewText();
@@ -144,7 +167,10 @@ function App() {
         setTestType={setTestType}
         duration={duration}
         setDuration={setDuration}
+        user={user}
+        setUser={setUser}
       />
+
       <main className="flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-[1300px]">
           {testType === "time" && <p className="timer">{remainingTime}s</p>}

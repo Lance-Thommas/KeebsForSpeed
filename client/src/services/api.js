@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API = axios.create({
-  baseURL: 'http://localhost:5000', // your backend URL
-});
+const API_URL = 'http://localhost:5000/api/users';
 
-export const loginUser = (userData) => API.post('/login', userData);
-export const registerUser = (userData) => API.post('/register', userData);
+export const loginUser = (data) => axios.post(`${API_URL}/login`, data);
+export const registerUser = (data) => axios.post(`${API_URL}/register`, data);
+export const saveStats = (data, tok) => axios.post(`${API_URL}/stats`, data, { headers: { Authorization: `Bearer ${tok}` } });
+export const fetchStats = (tok) => axios.get(`${API_URL}/stats`, { headers: { Authorization: `Bearer ${tok}` } });
