@@ -21,8 +21,6 @@ function App() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [startTime, setStartTime] = useState(null);
 
-  // Latest change not yet implemented
-  // Safe user state initialization with error handling
   const [user, setUser] = useState(() => {
     try {
       const savedUser = localStorage.getItem('user');
@@ -32,8 +30,6 @@ function App() {
       return null;
     }
   });
-
-
 
   const fetchNewText = async () => {
     try {
