@@ -14,6 +14,7 @@ function NavBar({
   setUser,
 }) {
   const [showLogin, setShowLogin] = useState(false);
+  const [showStats, setShowStats] = useState(false);
 
   const wordOptions = [10, 25, 50, 100, 150];
 

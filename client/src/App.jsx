@@ -10,7 +10,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [text, setText] = useState("");
   const [testType, setTestType] = useState("time");
-  const [duration, setDuration] = useState(30);
+  const [duration, setDuration] = useState(10);
   const [remainingTime, setRemainingTime] = useState(duration);
   const [wordCount, setWordCount] = useState(50);
   const [mode, setMode] = useState("default");
@@ -73,7 +73,7 @@ function App() {
     if (testType === "time" && isRunning && !isCompleted) {
       interval = setInterval(() => {
         setRemainingTime((prev) => {
-          if (prev <= 1) {
+          if (prev < 1) {
             clearInterval(interval);
             setIsRunning(false);
             setIsCompleted(true);
@@ -85,7 +85,7 @@ function App() {
             saveStats(wpm, accuracy, timeTaken);
             setFinalStats({ wpm, accuracy, time: timeTaken });
             setShowPopup(true);
-
+            console.log("Time's up! Final stats:", { wpm, accuracy, time: timeTaken });
             return 0;
           }
 
@@ -94,7 +94,7 @@ function App() {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isRunning, isCompleted, testType]);
+  }, [isRunning, isCompleted, testType, remainingTime]);
 
   useEffect(() => {
     if (testType === "words") {
@@ -121,12 +121,16 @@ function App() {
         setRemainingTime(duration); // reset timer on restart
       }
     }
+    console.log("User input:", value);
     setUserInput(value);
   };
 
   const calculateWPM = () => {
+    console.log("User Input:", userInput);
     const words = userInput.trim().split(/\s+/).length;
     const timeSpent = (Date.now() - startTime) / 1000 / 60;
+    console.log("Time spent in minutes:", timeSpent);
+    console.log("Words typed:", words);
     return timeSpent > 0 ? Math.round(words / timeSpent) : 0;
   };
 

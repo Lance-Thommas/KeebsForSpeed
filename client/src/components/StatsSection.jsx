@@ -14,14 +14,15 @@ function StatsSection({ close }) {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const data = await res.json();
-                setStats(data);
+                const statResults = data || [];
+                setStats(statResults);
 
-                if (data.length > 0) {
-                    const totalWPM = data.reduce((acc, s) => acc + s.wpm, 0);
-                    const totalAcc = data.reduce((acc, s) => acc + s.accuracy, 0);
+                if (statResults.length > 0) {
+                    const totalWPM = statResults.reduce((acc, s) => acc + s.wpm, 0);
+                    const totalAcc = statResults.reduce((acc, s) => acc + s.accuracy, 0);
                     setAverage({
-                        wpm: Math.round(totalWPM / data.length),
-                        accuracy: Math.round(totalAcc / data.length),
+                        wpm: Math.round(totalWPM / statResults.length),
+                        accuracy: Math.round(totalAcc / statResults.length),
                     });
                 }
             } catch (err) {
