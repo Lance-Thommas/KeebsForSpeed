@@ -149,7 +149,7 @@ function App() {
     if (!user || !token) return;
 
     try {
-      await fetch("http://localhost:5000/api/users/stats", {
+      await fetch("https://keebsforspeed-backend.onrender.com/api/users/stats", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

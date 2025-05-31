@@ -10,7 +10,7 @@ function StatsSection({ close }) {
             const token = localStorage.getItem("token");
             if (!token) return;
             try {
-                const res = await fetch("http://localhost:5000/api/users/stats", {
+                const res = await fetch("https://keebsforspeed-backend.onrender.com/api/users/stats", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const data = await res.json();
